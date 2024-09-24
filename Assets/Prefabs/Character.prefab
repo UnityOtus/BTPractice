@@ -987,7 +987,6 @@ GameObject:
   - component: {fileID: 3011317373241119557}
   - component: {fileID: 5631840772496047568}
   - component: {fileID: 9171852966772238074}
-  - component: {fileID: 5529379250020755419}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1031,7 +1030,7 @@ MonoBehaviour:
   _harvestComponent: {fileID: 8489095016137750506}
   _overlapSphereComponent: {fileID: 3011317373241119557}
   _takeResourceComponent: {fileID: 9171852966772238074}
-  _resourceStorage: {fileID: 5529379250020755419}
+  _resourceStorage: {fileID: 0}
 --- !u!114 &8765604542818359786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1116,20 +1115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extractCount: 1
---- !u!114 &5529379250020755419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7455131854162157427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 117c7fe85adb45f7be0c70cf50fb3755, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capacity: 10
-  current: 0
 --- !u!1 &7484532441032762191
 GameObject:
   m_ObjectHideFlags: 0
