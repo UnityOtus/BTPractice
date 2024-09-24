@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Tree = Game.Content.Tree;
 
 namespace Game.Engine
 {
@@ -11,7 +13,7 @@ namespace Game.Engine
         private GameObject[] trees;
         
         private void Awake()
-        {
+        { 
             this.trees = GameObject.FindGameObjectsWithTag(GameObjectTags.Tree);
         }
         

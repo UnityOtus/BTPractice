@@ -32,7 +32,7 @@ namespace Game.Engine
             this.condition.AddCondition(condition);
         }
         
-        public bool StartHarvest()
+        public bool Harvest()
         {
             if (_coroutine != null)
             {
