@@ -2720,7 +2720,7 @@ MonoBehaviour:
         nodes:
         - rid: 5927502930317934593
         - rid: 5927502930317934596
-        - rid: 5927502930317934598
+        - rid: 5927502930317934599
     - rid: 5927502930317934593
       type: {class: BTNodeCondition, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
       data:
@@ -2729,12 +2729,66 @@ MonoBehaviour:
           rid: 5927502930317934594
     - rid: 5927502930317934594
       type: {class: IsStorageFullCondition, ns: Engine, asm: Assembly-CSharp}
-      data: 
+      data:
+        storageObject: 0
     - rid: 5927502930317934596
       type: {class: MoveToTargetBTNode, ns: Game.Engine, asm: Assembly-CSharp}
       data:
         targetKey: 6
-    - rid: 5927502930317934598
+    - rid: 5927502930317934599
+      type: {class: BTNodeSelector, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        name: Selector for Barn
+        nodes:
+        - rid: 5927502930317934600
+        - rid: 5927502930317934601
+    - rid: 5927502930317934600
+      type: {class: BTNodeSequence, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        name: Ambar is FULL
+        nodes:
+        - rid: 5927502930317934607
+        - rid: 5927502930317934609
+    - rid: 5927502930317934601
+      type: {class: BTNodeSequence, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        name: Ambar is NOT FULL
+        nodes:
+        - rid: 5927502930317934612
+        - rid: 5927502930317934614
+    - rid: 5927502930317934607
+      type: {class: BTNodeCondition, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        name: 
+        condition:
+          rid: 5927502930317934608
+    - rid: 5927502930317934608
+      type: {class: IsStorageFullCondition, ns: Engine, asm: Assembly-CSharp}
+      data:
+        storageObject: 6
+    - rid: 5927502930317934609
+      type: {class: BTNodeAction, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        name: 
+        actions:
+        - rid: 5927502930317934611
+    - rid: 5927502930317934611
+      type: {class: ToggleGameObjectAction, ns: Game.Engine, asm: Assembly-CSharp}
+      data:
+        targetKey: 7
+        enable: 1
+    - rid: 5927502930317934612
+      type: {class: BTNodeAction, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        name: 
+        actions:
+        - rid: 5927502930317934613
+    - rid: 5927502930317934613
+      type: {class: ToggleGameObjectAction, ns: Game.Engine, asm: Assembly-CSharp}
+      data:
+        targetKey: 7
+        enable: 0
+    - rid: 5927502930317934614
       type: {class: MoveResourcesToBarnBTNode, ns: Game.Engine, asm: Assembly-CSharp}
       data: 
 --- !u!114 &1983411965 stripped
