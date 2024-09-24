@@ -16,7 +16,7 @@ namespace Atomic.AI
         [SerializeReference]
         private IBlackboardAction[] actions = default;
         
-        protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
+        protected override BTResult OnUpdate(IBlackboard blackboard, float deltaTime)
         {
             if (this.actions != null)
             {
@@ -27,7 +27,7 @@ namespace Atomic.AI
                 }
             }
 
-            return BTState.SUCCESS;
+            return BTResult.SUCCESS;
         }
     }
 }

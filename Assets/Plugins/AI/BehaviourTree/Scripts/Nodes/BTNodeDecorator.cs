@@ -48,7 +48,7 @@ namespace Atomic.AI
             }
         }
 
-        protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
+        protected override BTResult OnUpdate(IBlackboard blackboard, float deltaTime)
         {
             if (this.updateActions != null)
             {

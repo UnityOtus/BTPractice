@@ -1,6 +1,6 @@
 namespace Atomic.AI
 {
-    public enum BTState
+    public enum BTResult
     {
         RUNNING = 0,
         SUCCESS = 1,

@@ -20,12 +20,12 @@ namespace Atomic.AI
             currentNode.Abort(blackboard);
         }
         
-        protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
+        protected override BTResult OnUpdate(IBlackboard blackboard, float deltaTime)
         {
             BTNode currentNode = this.nodes[this.nodeIndex];
-            BTState result = currentNode.Run(blackboard, deltaTime);
+            BTResult result = currentNode.Run(blackboard, deltaTime);
             
-            if (result != BTState.FAILURE)
+            if (result != BTResult.FAILURE)
             {
                 return result;
             }
@@ -33,11 +33,11 @@ namespace Atomic.AI
             //Failure:
             if (this.nodeIndex == this.nodes.Length - 1)
             {
-                return BTState.FAILURE;
+                return BTResult.FAILURE;
             }
 
             this.nodeIndex++;
-            return BTState.RUNNING;
+            return BTResult.RUNNING;
         }
     }
 }

@@ -49,3 +49,12 @@ MonoBehaviour:
   - id: 9
     name: WaypointIndex
     type: int
+  - id: 10
+    name: WaypointPause
+    type: float
+  - id: 11
+    name: WaypointTime
+    type: float
+  - id: 12
+    name: Enemy
+    type: 'GameObject : class'

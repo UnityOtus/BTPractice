@@ -14,9 +14,9 @@ namespace Atomic.AI
         [SerializeReference]
         private IBlackboardCondition condition = default;
         
-        protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
+        protected override BTResult OnUpdate(IBlackboard blackboard, float deltaTime)
         {
-            return this.condition.Invoke(blackboard) ? BTState.SUCCESS : BTState.FAILURE;
+            return this.condition.Invoke(blackboard) ? BTResult.SUCCESS : BTResult.FAILURE;
         }
     }
 }

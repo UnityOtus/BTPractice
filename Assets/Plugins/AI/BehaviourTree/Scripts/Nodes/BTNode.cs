@@ -8,24 +8,24 @@ namespace Atomic.AI
     {
         public virtual string Name => this.GetType().Name;
 
-        public bool Enable => this.enable;
+        public bool IsActive => this.isActive;
         
         [ShowInInspector, ReadOnly]
-        private bool enable;
+        private bool isActive;
 
-        internal BTState Run(IBlackboard blackboard, float deltaTime)
+        internal BTResult Run(IBlackboard blackboard, float deltaTime)
         {
-            if (!this.enable)
+            if (!this.isActive)
             {
-                this.enable = true;
+                this.isActive = true;
                 this.OnEnable(blackboard);
             }
 
-            BTState result = this.OnUpdate(blackboard, deltaTime);
+            BTResult result = this.OnUpdate(blackboard, deltaTime);
 
-            if (result != BTState.RUNNING)
+            if (result != BTResult.RUNNING)
             {
-                this.enable = false;
+                this.isActive = false;
                 this.OnDisable(blackboard);
             }
 
@@ -34,15 +34,15 @@ namespace Atomic.AI
 
         internal void Abort(IBlackboard blackboard)
         {
-            if (this.enable)
+            if (this.isActive)
             {
-                this.enable = false;
+                this.isActive = false;
                 this.OnAbort(blackboard);
                 this.OnDisable(blackboard);
             }
         }
 
-        protected abstract BTState OnUpdate(IBlackboard blackboard, float deltaTime);
+        protected abstract BTResult OnUpdate(IBlackboard blackboard, float deltaTime);
         
         protected virtual void OnEnable(IBlackboard blackboard)
         {

@@ -9,17 +9,18 @@ namespace Atomic.AI
     {
         public override string Name => this.node != null ? this.node.Name : "Undefined";
 
-        [Header("Condition")]
-        [SerializeReference, Space]
-        private IBlackboardCondition[] conditions;
-
+        
         [Header("Node")]
         [SerializeReference, Space]
         private BTNode node;
-
+        
+        [Header("Condition")]
+        [SerializeReference, Space]
+        private IBlackboardCondition[] conditions;
+        
         private bool[] states;
 
-        protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
+        protected override BTResult OnUpdate(IBlackboard blackboard, float deltaTime)
         {
             this.TryAbort(blackboard);
             return this.node.Run(blackboard, deltaTime);
