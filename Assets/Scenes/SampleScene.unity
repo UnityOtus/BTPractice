@@ -1401,59 +1401,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackboard: {fileID: 1131779158}
   initialRoot:
-    rid: 4531774068201095191
+    rid: 4531774068201095202
   controlState: 1
   updateMode: 0
   references:
     version: 2
     RefIds:
-    - rid: 4531774068201095191
+    - rid: 4531774068201095202
+      type: {class: BTNodeAborter, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        conditions:
+        - rid: 4531774068201095214
+        node:
+          rid: 4531774068201095204
+    - rid: 4531774068201095204
       type: {class: BTNodeSelector, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
       data:
         name: Root
         nodes:
-        - rid: 4531774068201095197
-        - rid: 4531774068201095192
-    - rid: 4531774068201095192
+        - rid: 4531774068201095215
+        - rid: 4531774068201095206
+    - rid: 4531774068201095206
       type: {class: BTNodeSequence, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
       data:
         name: Patrol
         nodes:
-        - rid: 4531774068201095193
-        - rid: 4531774068201095194
-        - rid: 4531774068201095195
-        - rid: 4531774068201095196
-    - rid: 4531774068201095193
+        - rid: 4531774068201095209
+        - rid: 4531774068201095210
+        - rid: 4531774068201095211
+        - rid: 4531774068201095212
+    - rid: 4531774068201095209
       type: {class: AssignWaypointBTNode, ns: Game.Engine, asm: Assembly-CSharp}
       data: 
-    - rid: 4531774068201095194
+    - rid: 4531774068201095210
       type: {class: MoveToTargetBTNode, ns: Game.Engine, asm: Assembly-CSharp}
       data:
         targetKey: 3
-    - rid: 4531774068201095195
+    - rid: 4531774068201095211
       type: {class: WaypointPauseBTNode, ns: Game.Engine, asm: Assembly-CSharp}
       data: 
-    - rid: 4531774068201095196
+    - rid: 4531774068201095212
       type: {class: NextWaypointBTNode, ns: Game.Engine, asm: Assembly-CSharp}
       data: 
-    - rid: 4531774068201095197
+    - rid: 4531774068201095214
+      type: {class: HasEnemyBlackboardCondition, ns: Engine, asm: Assembly-CSharp}
+      data: 
+    - rid: 4531774068201095215
+      type: {class: BTNodeDecorator, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
+      data:
+        node:
+          rid: 4531774068201095216
+        enableActions: []
+        disableActions: []
+        updateActions: []
+        abortActions: []
+    - rid: 4531774068201095216
       type: {class: BTNodeSequence, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
       data:
         name: Attack
         nodes:
-        - rid: 4531774068201095200
-        - rid: 4531774068201095199
-    - rid: 4531774068201095199
-      type: {class: MoveToTargetBTNode, ns: Game.Engine, asm: Assembly-CSharp}
-      data:
-        targetKey: 12
-    - rid: 4531774068201095200
+        - rid: 4531774068201095217
+        - rid: 4531774068201095218
+    - rid: 4531774068201095217
       type: {class: BTNodeCondition, ns: Atomic.AI, asm: Atomic.AI.BehaviourTree}
       data:
         name: HasTarget
         condition:
-          rid: 4531774068201095201
-    - rid: 4531774068201095201
+          rid: 4531774068201095219
+    - rid: 4531774068201095218
+      type: {class: MoveToTargetBTNode, ns: Game.Engine, asm: Assembly-CSharp}
+      data:
+        targetKey: 12
+    - rid: 4531774068201095219
       type: {class: HasEnemyBlackboardCondition, ns: Engine, asm: Assembly-CSharp}
       data: 
 --- !u!1001 &1163636013
