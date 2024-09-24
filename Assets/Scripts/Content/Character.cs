@@ -1,173 +1,62 @@
-using System;
-using Atomic.AI;
-using Atomic.Behaviours;
-using Atomic.Elements;
-using Atomic.Extensions;
-using Atomic.Objects;
 using Game.Engine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Sample
+namespace Game.Content
 {
-    [Is(ObjectType.ResourceCollector)]
-    public sealed class Character : AtomicObject
+    public sealed class Character : MonoBehaviour
     {
-        ///Interface 
-        [Get(ObjectAPI.Transform)]
-        public Transform Transform => this.transform;
+        [Header("Movement")]
+        [SerializeField]
+        private MoveComponent _moveComponent;
 
-        [Get(ObjectAPI.MoveStepRequest)]
-        public IAtomicAction<Vector3> MoveStepRequest => this.core.moveComponent.MoveRequest;
-        
-        [Get(ObjectAPI.LookDirection)]
-        public IAtomicVariable<Vector3> LookDirection => this.core.lookComponent.LookDirection;
+        [SerializeField]
+        private LookComponent _lookComponent;
 
-        [Get(ObjectAPI.ResourceStorage)]
-        public ResourceStorage ResourceBag => this.core.resourceStorage;
-        
-        [Get(ObjectAPI.GatherRequest)]
-        public IAtomicAction GatherRequest => this.core.gatherComponent.Request;
+        [Header("Harvesting")]
+        [SerializeField]
+        private HarvestComponent _harvestComponent;
 
-        [Get(ObjectAPI.IsGathering)]
-        public IAtomicValue<bool> IsGathering => this.view.isGathering;
+        [SerializeField]
+        private OverlapSphereComponent _overlapSphereComponent;
 
-        ///Core:
-        public Character_Core core;
-        public Character_View view;
+        [SerializeField]
+        private TakeResourceComponent _takeResourceComponent;
 
-        public override void Compose()
-        {
-            this.core.Compose();
-            this.view.Compose(this.core);
-            base.Compose();
-        }
-
-        private void Awake()
-        {
-            this.Compose();
-        }
+        [Header("Storage")]
+        [SerializeField]
+        private ResourceStorageComponent _resourceStorage;
 
         private void OnEnable()
         {
-            this.view.Enable();
+            _moveComponent.OnMove += this.OnMove;
         }
 
         private void OnDisable()
         {
-            this.view.Disable();
+            _moveComponent.OnMove -= this.OnMove;
         }
 
-        private void FixedUpdate()
+        private void OnMove()
         {
-            float deltaTime = Time.fixedDeltaTime;
-            this.core.OnFixedUpdate(deltaTime);
+            _lookComponent.Direction = _moveComponent.MoveDirection;
         }
 
-        private void LateUpdate()
+        private void Start()
         {
-            this.view.OnLateUpdate(Time.deltaTime);
-        }
-    }
-
-    [Serializable]
-    public sealed class Character_Core : IFixedUpdate
-    {
-        [Space]
-        public MoveComponent moveComponent;
-
-        [Space]
-        public LookComponent lookComponent;
-
-        [Space]
-        public ActionComponent gatherComponent;
-
-        [Space]
-        [FormerlySerializedAs("resouceStorage")]
-        public ResourceStorage resourceStorage;
-
-        [Space]
-        public Axe axe;
-
-        [SerializeField]
-        private ExtractResourceAction extractResourceAction;
-        
-        public void Compose()
-        {
-            this.moveComponent.Compose();
-
-            this.gatherComponent.Let(it =>
-            {
-                it.Condition.Append(new AtomicFunction<bool>(this.resourceStorage.IsNotFull));
-                it.Compose();
-            });
-
-            this.axe.HitEvent.Subscribe(this.extractResourceAction);
-
-            this.extractResourceAction.Compose(this.resourceStorage, 1.AsValue());
+            _harvestComponent.AddCondition(_resourceStorage.IsNotFull);
+            _harvestComponent.SetProcessAction(this.RaycastResources);
         }
 
-        public void OnFixedUpdate(float deltaTime)
+        private void RaycastResources()
         {
-            if (this.moveComponent.IsMoving.Value)
-            {
-                this.lookComponent.LookDirection.Value = this.moveComponent.MoveDirection.Value;
-            }
-
-            this.moveComponent.OnFixedUpdate(deltaTime);
-            this.lookComponent.OnFixedUpdate(deltaTime);
-        }
-    }
-
-    [Serializable]
-    public sealed class Character_View : IEnable, IDisable, ILateUpdate
-    {
-        private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
-        private static readonly int ChopAnimHash = Animator.StringToHash("Chop");
-        private const string ChopAnimEvent = "chop";
-
-        [SerializeField]
-        private Animator animator;
-
-        [SerializeField]
-        private AnimatorDispatcher dispatcher;
-
-        private MoveAnimMechanics moveAnimMechanics;
-        private AnimatorTriggerMechanics chopAnimatorTriggerMechanics;
-        private AnimationEventListener chopAnimListener;
-        
-        public AtomicFunction<bool> isGathering;
-
-        public void Compose(Character_Core core)
-        {
-            this.moveAnimMechanics = new MoveAnimMechanics(
-                this.animator, IsMovingHash, core.moveComponent.IsMoving
-            );
-            this.chopAnimatorTriggerMechanics = new AnimatorTriggerMechanics(
-                this.animator, ChopAnimHash, core.gatherComponent.Event
-            );
-            this.chopAnimListener = new AnimationEventListener(
-                this.dispatcher, ChopAnimEvent, core.axe.HitAction
-            );
-
-            this.isGathering.Compose(() => this.animator.GetBehaviour<ChopSMBehaviour>().IsChopping);
+            _overlapSphereComponent.OverlapSphere(this.HarvestResource);
         }
 
-        public void Enable()
+        private bool HarvestResource(GameObject target)
         {
-            this.chopAnimListener.Enable();
-            this.chopAnimatorTriggerMechanics.Enable();
-        }
-
-        public void Disable()
-        {
-            this.chopAnimatorTriggerMechanics.Disable();
-            this.chopAnimListener.Disable();
-        }
-
-        public void OnLateUpdate(float deltaTime)
-        {
-            this.moveAnimMechanics.OnUpdate(deltaTime);
+            return target.CompareTag(GameObjectTags.Tree) &&
+                   target.activeSelf &&
+                   _takeResourceComponent.TakeResources(target);
         }
     }
 }

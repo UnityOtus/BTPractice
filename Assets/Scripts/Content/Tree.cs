@@ -1,46 +1,17 @@
-using Atomic.Elements;
-using Atomic.Objects;
 using Game.Engine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Sample
+namespace Game.Content
 {
-    [Is(ObjectType.Resource)]
-    public sealed class Tree : AtomicObject
+    public sealed class Tree : MonoBehaviour
     {
-        ///Interface 
-        [Get(ObjectAPI.ResourceStorage)]
-        public ResourceStorage Storage => this.storage;
-
-        [Get(ObjectAPI.Transform)]
-        public Transform Transform => this.transform;
-
-        [Get(ObjectAPI.IsActive)]
-        public IAtomicValue<bool> IsActive => this.isActive;
-
-        ///Core
         private static readonly int ChopAnimHash = Animator.StringToHash("Chop");
 
-        [SerializeField, FormerlySerializedAs("resourceStorage")]
-        private ResourceStorage storage;
+        [SerializeField]
+        private Animator _animator;
 
         [SerializeField]
-        private Animator animator;
-
-        [SerializeField]
-        private AtomicFunction<bool> isActive;
-
-        public override void Compose()
-        {
-            base.Compose();
-            this.isActive.Compose(() => this.gameObject.activeSelf);
-        }
-
-        private void Awake()
-        {
-            this.Compose();
-        }
+        private ResourceStorageComponent storage;
 
         private void OnEnable()
         {
@@ -60,7 +31,7 @@ namespace Sample
             }
             else
             {
-                this.animator.Play(ChopAnimHash, -1, 0);
+                _animator.Play(ChopAnimHash, -1, 0);
             }
         }
     }

@@ -1,11 +1,9 @@
 using System;
 using Atomic.AI;
-using Atomic.Extensions;
-using Atomic.Objects;
-using UnityEngine;
 
 namespace Game.Engine
 {
+    //Команда №3
     [Serializable]
     public sealed class BTNode_UnloadResources : BTNode
     {
@@ -13,12 +11,8 @@ namespace Game.Engine
         
         protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
         {
-            var targetStorage = blackboard.GetBarn().Storage;
-            var character = blackboard.GetCharacter();
-            var characterStorage = character.ResourceBag;
-
-            var amount = characterStorage.ExtractAllResources();
-            targetStorage.PutResources(amount);
+            var amount = blackboard.GetCharacter().GetComponent<ResourceStorageComponent>().ExtractAllResources();
+            blackboard.GetBarn().GetComponent<ResourceStorageComponent>().AddResources(amount);
 
             return BTState.SUCCESS;
         }

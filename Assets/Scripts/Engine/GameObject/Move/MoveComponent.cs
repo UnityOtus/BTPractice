@@ -1,58 +1,41 @@
 using System;
-using Atomic.Behaviours;
-using Atomic.Elements;
-using Atomic.Objects;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 // ReSharper disable MemberInitializerValueIgnored
 
 namespace Game.Engine
 {
-    [Serializable]
-    public sealed class MoveComponent : IDisposable, IFixedUpdate
+    public sealed class MoveComponent : MonoBehaviour
     {
-        public IAtomicAction<Vector3> MoveRequest => this.moveRequest;
-        public IAtomicValue<bool> IsMoving => this.isMoving;
-        public IAtomicValue<Vector3> MoveDirection => this.moveDirection;
+        public event Action OnMove;
         
-        [SerializeField]
-        private Transform transform;
-        
-        [SerializeField]
-        private AtomicAction<Vector3> moveRequest;
-        
-        [SerializeField]
-        private AtomicValue<float> moveSpeed = new(0);
-        
-        [SerializeField, ReadOnly]
-        private AtomicVariable<Vector3> moveDirection = new();
+        public bool IsMoving => this.isMoving;
+        public Vector3 MoveDirection => this.moveDirection;
 
-        [SerializeField, ReadOnly]
-        private AtomicVariable<bool> isMoving;
-        
-        public void Compose()
+        [SerializeField]
+        private float moveSpeed = 3.0f;
+
+        [ShowInInspector, ReadOnly]
+        private Vector3 moveDirection;
+
+        [ShowInInspector, ReadOnly]
+        private bool isMoving;
+
+        public void MoveStep(Vector3 direction)
         {
-            this.moveRequest.Compose(direction =>
-            {
-                this.moveDirection.Value = direction;
-                this.isMoving.Value = true;
-            });
+            this.moveDirection = direction;
+            this.isMoving = true;
         }
 
-        public void OnFixedUpdate(float deltaTime)
+        private void FixedUpdate()
         {
-            if (this.isMoving.Value)
+            if (this.isMoving)
             {
-                this.transform.position += this.moveSpeed.Value * deltaTime * this.moveDirection.Value;
-                this.isMoving.Value = false;
+                this.transform.position += this.moveSpeed * Time.fixedDeltaTime * this.moveDirection;
+                this.OnMove?.Invoke();
+                this.isMoving = false;
             }
-        }
-
-        public void Dispose()
-        {
-            this.moveDirection?.Dispose();
         }
     }
 }

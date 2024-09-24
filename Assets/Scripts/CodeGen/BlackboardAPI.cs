@@ -3,22 +3,19 @@
  */
 using System.Runtime.CompilerServices;
 using Atomic.AI;
-using Sample;
 using Game.Engine;
-using Atomic.Objects;
-namespace Atomic.AI
+using UnityEngine;
+namespace Game
 {
     public static class BlackboardAPI
     {
-        public const int Character = 1; // Character : class
-        public const int ResourceService = 2; // ResourceService : class
-        public const int TargetResource = 3; // IAtomicObject : class
-        public const int Target = 4; // IAtomicObject : class
+        public const int Character = 1; // GameObject : class
+        public const int TreeService = 2; // TreeService : class
+        public const int TargetResource = 3; // GameObject : class
+        public const int NoTreesView = 4; // GameObject : class
         public const int StoppingDistance = 5; // float
-        public const int Barn = 6; // Barn : class
-        public const int FullBarnText = 7; // GameObject
-        public const int NoResourceText = 8; // GameObject
-        public const int ResourceStoppingDistance = 9; // float
+        public const int Barn = 6; // GameObject : class
+        public const int FullBarnView = 7; // GameObject : class
 
 
         ///Extensions
@@ -26,64 +23,64 @@ namespace Atomic.AI
 		public static bool HasCharacter(this IBlackboard obj) => obj.HasObject(Character);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Character  GetCharacter(this IBlackboard obj) => obj.GetObject<Character >(Character);
+		public static GameObject  GetCharacter(this IBlackboard obj) => obj.GetObject<GameObject >(Character);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetCharacter(this IBlackboard obj, out Character  value) => obj.TryGetObject(Character, out value);
+		public static bool TryGetCharacter(this IBlackboard obj, out GameObject  value) => obj.TryGetObject(Character, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetCharacter(this IBlackboard obj, Character  value) => obj.SetObject(Character, value);
+		public static void SetCharacter(this IBlackboard obj, GameObject  value) => obj.SetObject(Character, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool DelCharacter(this IBlackboard obj) => obj.DelObject(Character);
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasResourceService(this IBlackboard obj) => obj.HasObject(ResourceService);
+		public static bool HasTreeService(this IBlackboard obj) => obj.HasObject(TreeService);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static ResourceService  GetResourceService(this IBlackboard obj) => obj.GetObject<ResourceService >(ResourceService);
+		public static TreeService  GetTreeService(this IBlackboard obj) => obj.GetObject<TreeService >(TreeService);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetResourceService(this IBlackboard obj, out ResourceService  value) => obj.TryGetObject(ResourceService, out value);
+		public static bool TryGetTreeService(this IBlackboard obj, out TreeService  value) => obj.TryGetObject(TreeService, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetResourceService(this IBlackboard obj, ResourceService  value) => obj.SetObject(ResourceService, value);
+		public static void SetTreeService(this IBlackboard obj, TreeService  value) => obj.SetObject(TreeService, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelResourceService(this IBlackboard obj) => obj.DelObject(ResourceService);
+		public static bool DelTreeService(this IBlackboard obj) => obj.DelObject(TreeService);
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool HasTargetResource(this IBlackboard obj) => obj.HasObject(TargetResource);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static IAtomicObject  GetTargetResource(this IBlackboard obj) => obj.GetObject<IAtomicObject >(TargetResource);
+		public static GameObject  GetTargetResource(this IBlackboard obj) => obj.GetObject<GameObject >(TargetResource);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetTargetResource(this IBlackboard obj, out IAtomicObject  value) => obj.TryGetObject(TargetResource, out value);
+		public static bool TryGetTargetResource(this IBlackboard obj, out GameObject  value) => obj.TryGetObject(TargetResource, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetTargetResource(this IBlackboard obj, IAtomicObject  value) => obj.SetObject(TargetResource, value);
+		public static void SetTargetResource(this IBlackboard obj, GameObject  value) => obj.SetObject(TargetResource, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool DelTargetResource(this IBlackboard obj) => obj.DelObject(TargetResource);
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasTarget(this IBlackboard obj) => obj.HasObject(Target);
+		public static bool HasNoTreesView(this IBlackboard obj) => obj.HasObject(NoTreesView);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static IAtomicObject  GetTarget(this IBlackboard obj) => obj.GetObject<IAtomicObject >(Target);
+		public static GameObject  GetNoTreesView(this IBlackboard obj) => obj.GetObject<GameObject >(NoTreesView);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetTarget(this IBlackboard obj, out IAtomicObject  value) => obj.TryGetObject(Target, out value);
+		public static bool TryGetNoTreesView(this IBlackboard obj, out GameObject  value) => obj.TryGetObject(NoTreesView, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetTarget(this IBlackboard obj, IAtomicObject  value) => obj.SetObject(Target, value);
+		public static void SetNoTreesView(this IBlackboard obj, GameObject  value) => obj.SetObject(NoTreesView, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelTarget(this IBlackboard obj) => obj.DelObject(Target);
+		public static bool DelNoTreesView(this IBlackboard obj) => obj.DelObject(NoTreesView);
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -106,34 +103,32 @@ namespace Atomic.AI
 		public static bool HasBarn(this IBlackboard obj) => obj.HasObject(Barn);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static Barn  GetBarn(this IBlackboard obj) => obj.GetObject<Barn >(Barn);
+		public static GameObject  GetBarn(this IBlackboard obj) => obj.GetObject<GameObject >(Barn);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetBarn(this IBlackboard obj, out Barn  value) => obj.TryGetObject(Barn, out value);
+		public static bool TryGetBarn(this IBlackboard obj, out GameObject  value) => obj.TryGetObject(Barn, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetBarn(this IBlackboard obj, Barn  value) => obj.SetObject(Barn, value);
+		public static void SetBarn(this IBlackboard obj, GameObject  value) => obj.SetObject(Barn, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool DelBarn(this IBlackboard obj) => obj.DelObject(Barn);
 
 
-
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasFullBarnView(this IBlackboard obj) => obj.HasObject(FullBarnView);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasResourceStoppingDistance(this IBlackboard obj) => obj.HasFloat(ResourceStoppingDistance);
+		public static GameObject  GetFullBarnView(this IBlackboard obj) => obj.GetObject<GameObject >(FullBarnView);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static float GetResourceStoppingDistance(this IBlackboard obj) => obj.GetFloat(ResourceStoppingDistance);
+		public static bool TryGetFullBarnView(this IBlackboard obj, out GameObject  value) => obj.TryGetObject(FullBarnView, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetResourceStoppingDistance(this IBlackboard obj, out float value) => obj.TryGetFloat(ResourceStoppingDistance, out value);
+		public static void SetFullBarnView(this IBlackboard obj, GameObject  value) => obj.SetObject(FullBarnView, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetResourceStoppingDistance(this IBlackboard obj, float value) => obj.SetFloat(ResourceStoppingDistance, value);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelResourceStoppingDistance(this IBlackboard obj) => obj.DelFloat(ResourceStoppingDistance);
+		public static bool DelFullBarnView(this IBlackboard obj) => obj.DelObject(FullBarnView);
 
     }
 }

@@ -12,35 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10f62366b8b4b15b1bf35e2b066b073, type: 3}
   m_Name: BlackboardConfig
   m_EditorClassIdentifier: 
-  Namespace: Atomic.AI
+  Namespace: Game
   directoryPath: Assets/Scripts/CodeGen
   className: BlackboardAPI
   imports:
-  - Sample
   - Game.Engine
-  - Atomic.Objects
+  - UnityEngine
   keys:
   - id: 0
     name: UNDEFINED
     type: 
   - id: 1
     name: Character
-    type: 'Character : class'
+    type: 'GameObject : class'
   - id: 2
-    name: ResourceService
-    type: 'ResourceService : class'
+    name: TreeService
+    type: 'TreeService : class'
   - id: 3
     name: TargetResource
-    type: 'IAtomicObject : class'
+    type: 'GameObject : class'
   - id: 4
-    name: Target
-    type: 'IAtomicObject : class'
+    name: NoTreesView
+    type: 'GameObject : class'
   - id: 5
     name: StoppingDistance
     type: float
   - id: 6
     name: Barn
-    type: 'Barn : class'
+    type: 'GameObject : class'
   - id: 7
-    name: FullBarnText
-    type: GameObject
+    name: FullBarnView
+    type: 'GameObject : class'

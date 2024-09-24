@@ -1,51 +1,50 @@
 ﻿using System;
 using Atomic.AI;
-using Atomic.Extensions;
-using Engine.Functions;
+using Game;
 using Game.Engine;
 using UnityEngine;
 
 namespace Engine.AI.BTNodes
 {
+    //Группа №2
     [Serializable]
     public sealed class BTNode_ExtractResource : BTNode
     {
         public override string Name => "Extract Resource";
 
         [SerializeField, BlackboardKey]
-        private int minDistance;
+        private int minDistanceKey;
 
         protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
         {
-            var character = blackboard.GetCharacter();
-            var resource = blackboard.GetTargetResource();
-            var distance = blackboard.GetFloat(minDistance);
+            GameObject character = blackboard.GetCharacter();
+            GameObject resource = blackboard.GetTargetResource();
+            float minDistance = blackboard.GetFloat(this.minDistanceKey);
 
-            if (resource.Get<ResourceStorage>(ObjectAPI.ResourceStorage).IsEmpty())
+            if (resource.GetComponent<ResourceStorageComponent>().IsEmpty())
             {
                 Debug.Log("Extracted");
                 return BTState.SUCCESS;
             }
             
-            if (character.ResourceBag.IsFull())
+            if (character.GetComponent<ResourceStorageComponent>().IsFull())
             {
                 Debug.Log("Backpack is full");
                 return BTState.SUCCESS;
             }
 
-            if (!TargetIsReached.IsReached(
-                    character.Transform, 
-                    resource.Get<Transform>(ObjectAPI.Transform),
-                    distance,
-                    out Vector3 direction))
+            Vector3 distanceVector = resource.transform.position - character.transform.position;
+            distanceVector.y = 0;
+            
+            if (distanceVector.sqrMagnitude > minDistance * minDistance)
             {
                 Debug.Log("Not reached");
                 return BTState.FAILURE;
             }
 
             Debug.Log("Invoking");
-            character.InvokeAction(ObjectAPI.GatherRequest);
-            
+            character.GetComponent<LookComponent>().Direction = distanceVector.normalized;
+            character.GetComponent<HarvestComponent>().StartHarvest();
             return BTState.RUNNING;
         }
     }

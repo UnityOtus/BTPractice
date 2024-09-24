@@ -1,25 +1,25 @@
-using Atomic.Behaviours;
-using Atomic.Elements;
 using UnityEngine;
 
 namespace Game.Engine
 {
-    public sealed class MoveAnimMechanics : IUpdate
+    [RequireComponent(typeof(Animator))]
+    public sealed class MoveAnimMechanics : MonoBehaviour
     {
-        private readonly Animator animator;
-        private readonly IAtomicValue<bool> isMoving;
-        private readonly int isMovingHash;
+        private static readonly int IsMovingHash = Animator.StringToHash("IsMoving");
 
-        public MoveAnimMechanics(Animator animator, int isMovingHash, IAtomicValue<bool> isMoving)
+        private Animator _animator;
+
+        [SerializeField]
+        private MoveComponent _moveComponent;
+
+        private void Awake()
         {
-            this.animator = animator;
-            this.isMoving = isMoving;
-            this.isMovingHash = isMovingHash;
+            _animator = this.GetComponent<Animator>();
         }
 
-        public void OnUpdate(float deltaTime)
+        private void LateUpdate()
         {
-            this.animator.SetBool(this.isMovingHash, this.isMoving.Value);
+            _animator.SetBool(IsMovingHash, _moveComponent.IsMoving);
         }
     }
 }

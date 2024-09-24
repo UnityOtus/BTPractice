@@ -1,9 +1,5 @@
 using System;
 using Atomic.AI;
-using Atomic.Extensions;
-using Atomic.Objects;
-using Engine.Functions;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Game.Engine
@@ -14,27 +10,30 @@ namespace Game.Engine
         public override string Name => "Move To Target";
 
         [SerializeField, BlackboardKey]
-        private int character;
+        private int characterKey;
 
         [SerializeField, BlackboardKey]
-        private int target;
+        private int targetKey;
 
         [SerializeField, BlackboardKey]
-        private int stoppingDistance;
+        private int stoppingDistanceKey;
 
         protected override BTState OnUpdate(IBlackboard blackboard, float deltaTime)
         {
-            var m_character = blackboard.GetCharacter();
-            var m_target = blackboard.GetObject<IAtomicObject>(target);
-            var m_stoppingDistance = blackboard.GetFloat(stoppingDistance);
+            GameObject character = blackboard.GetObject<GameObject>(this.characterKey);
+            GameObject target = blackboard.GetObject<GameObject>(this.targetKey);
+            float stoppingDistance = blackboard.GetFloat(this.stoppingDistanceKey);
 
-            Transform characterTransform = m_character.Transform;
-            Transform targetTransform = m_target.Get<Transform>(ObjectAPI.Transform);
-
-            if(TargetIsReached.IsReached(characterTransform,targetTransform,m_stoppingDistance, out Vector3 direction))
-                return BTState.SUCCESS;
+            Vector3 distance = target.transform.position- character.transform.position;
+            distance.y = 0;
             
-            m_character.InvokeAction(ObjectAPI.MoveStepRequest,direction);
+            if (distance.sqrMagnitude <= stoppingDistance * stoppingDistance)
+            {
+                return BTState.SUCCESS;
+            }
+
+            Vector3 direction = distance.normalized;
+            character.GetComponent<MoveComponent>().MoveStep(direction);
             return BTState.RUNNING;
         }
     }

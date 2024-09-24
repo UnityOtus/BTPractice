@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1445717375504614107}
   - component: {fileID: 6810040801840628924}
   m_Layer: 0
-  m_Name: Tree
+  m_Name: <View>
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3839109870092912376}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1376846219067432024}
-  m_RootOrder: -1
+  m_Father: {fileID: 8994793847325045474}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2350114529503848475
 MeshFilter:
@@ -105,38 +105,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &7368413063293529224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1376846219067432024}
-  m_Layer: 0
-  m_Name: '[Visual]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1376846219067432024
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7368413063293529224}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3374702280833362090}
-  m_Father: {fileID: 8994793847325045474}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8617706012052154456
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,11 +114,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8994793847325045474}
-  - component: {fileID: 65700197}
+  - component: {fileID: 3572802413937496799}
+  - component: {fileID: 5416349452405029268}
   - component: {fileID: 5040754119573048071}
   m_Layer: 10
   m_Name: Tree
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -162,16 +131,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8617706012052154456}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1376846219067432024}
+  - {fileID: 3374702280833362090}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &65700197
+--- !u!114 &3572802413937496799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,13 +149,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 8617706012052154456}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b81e833ed29b54977b3e4979d5fd9f64, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fd1a4dcc52842568e69cb6d66c5bdbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  storage:
-    capacity: 3
-    current: 3
-  animator: {fileID: 6810040801840628924}
+  _animator: {fileID: 6810040801840628924}
+  storage: {fileID: 5416349452405029268}
+--- !u!114 &5416349452405029268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8617706012052154456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 117c7fe85adb45f7be0c70cf50fb3755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capacity: 5
+  current: 5
 --- !u!136 &5040754119573048071
 CapsuleCollider:
   m_ObjectHideFlags: 0

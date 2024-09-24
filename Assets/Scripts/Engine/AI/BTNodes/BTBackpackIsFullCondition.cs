@@ -1,14 +1,14 @@
 ﻿using Atomic.AI;
+using Game;
 using Game.Engine;
 
 namespace Engine.AI.BTNodes
 {
-    public class BTBackpackIsFullCondition: IBlackboardCondition
+    public sealed class BTBackpackIsFullCondition: IBlackboardCondition
     {
         public bool Invoke(IBlackboard blackboard)
         {
-            var character = blackboard.GetCharacter();
-            return character.ResourceBag.IsFull();
+            return blackboard.GetCharacter().GetComponent<ResourceStorageComponent>().IsFull();
         }
     }
 }

@@ -1,28 +1,25 @@
 using System;
-using Atomic.Behaviours;
-using Atomic.Elements;
-using Atomic.Objects;
-using Game.Engine;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Engine
 {
-    [Serializable]
-    public sealed class LookComponent : IFixedUpdate
+    public sealed class LookComponent : MonoBehaviour
     {
-        public IAtomicVariable<Vector3> LookDirection => this.lookDirection;
-        
-        [SerializeField]
-        private Transform transform;
-
-        [SerializeField]
-        private AtomicVariable<Vector3> lookDirection;
-
-        public void OnFixedUpdate(float deltaTime)
+        public Vector3 Direction
         {
-            if (this.lookDirection.Value != Vector3.zero)
+            get => this.direction;
+            set => this.direction = value;
+        }
+
+        [ShowInInspector]
+        private Vector3 direction;
+
+        private void FixedUpdate()
+        {
+            if (this.direction != Vector3.zero)
             {
-                this.transform.rotation = Quaternion.LookRotation(this.lookDirection.Value, Vector3.up);
+                this.transform.rotation = Quaternion.LookRotation(this.direction, Vector3.up);
             }
         }
     }
