@@ -11,11 +11,15 @@ namespace Game
     {
         public const int Character = 1; // GameObject : class
         public const int TreeService = 2; // TreeService : class
-        public const int TargetResource = 3; // GameObject : class
+        public const int Target = 3; // GameObject : class
         public const int NoTreesView = 4; // GameObject : class
         public const int StoppingDistance = 5; // float
         public const int Barn = 6; // GameObject : class
         public const int FullBarnView = 7; // GameObject : class
+        public const int Waypoints = 8; // Transform[] : class
+        public const int WaypointIndex = 9; // int
+        public const int WaypointPause = 10; // float
+        public const int WaypointTime = 11; // float
 
 
         ///Extensions
@@ -52,19 +56,19 @@ namespace Game
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool HasTargetResource(this IBlackboard obj) => obj.HasObject(TargetResource);
+		public static bool HasTarget(this IBlackboard obj) => obj.HasObject(Target);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static GameObject  GetTargetResource(this IBlackboard obj) => obj.GetObject<GameObject >(TargetResource);
+		public static GameObject  GetTarget(this IBlackboard obj) => obj.GetObject<GameObject >(Target);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool TryGetTargetResource(this IBlackboard obj, out GameObject  value) => obj.TryGetObject(TargetResource, out value);
+		public static bool TryGetTarget(this IBlackboard obj, out GameObject  value) => obj.TryGetObject(Target, out value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void SetTargetResource(this IBlackboard obj, GameObject  value) => obj.SetObject(TargetResource, value);
+		public static void SetTarget(this IBlackboard obj, GameObject  value) => obj.SetObject(Target, value);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool DelTargetResource(this IBlackboard obj) => obj.DelObject(TargetResource);
+		public static bool DelTarget(this IBlackboard obj) => obj.DelObject(Target);
 
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -129,6 +133,70 @@ namespace Game
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static bool DelFullBarnView(this IBlackboard obj) => obj.DelObject(FullBarnView);
+
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasWaypoints(this IBlackboard obj) => obj.HasObject(Waypoints);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static Transform[]  GetWaypoints(this IBlackboard obj) => obj.GetObject<Transform[] >(Waypoints);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetWaypoints(this IBlackboard obj, out Transform[]  value) => obj.TryGetObject(Waypoints, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetWaypoints(this IBlackboard obj, Transform[]  value) => obj.SetObject(Waypoints, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelWaypoints(this IBlackboard obj) => obj.DelObject(Waypoints);
+
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasWaypointIndex(this IBlackboard obj) => obj.HasInt(WaypointIndex);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static int GetWaypointIndex(this IBlackboard obj) => obj.GetInt(WaypointIndex);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetWaypointIndex(this IBlackboard obj, out int value) => obj.TryGetInt(WaypointIndex, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetWaypointIndex(this IBlackboard obj, int value) => obj.SetInt(WaypointIndex, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelWaypointIndex(this IBlackboard obj) => obj.DelInt(WaypointIndex);
+
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasWaypointPause(this IBlackboard obj) => obj.HasFloat(WaypointPause);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static float GetWaypointPause(this IBlackboard obj) => obj.GetFloat(WaypointPause);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetWaypointPause(this IBlackboard obj, out float value) => obj.TryGetFloat(WaypointPause, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetWaypointPause(this IBlackboard obj, float value) => obj.SetFloat(WaypointPause, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelWaypointPause(this IBlackboard obj) => obj.DelFloat(WaypointPause);
+
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool HasWaypointTime(this IBlackboard obj) => obj.HasFloat(WaypointTime);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static float GetWaypointTime(this IBlackboard obj) => obj.GetFloat(WaypointTime);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool TryGetWaypointTime(this IBlackboard obj, out float value) => obj.TryGetFloat(WaypointTime, out value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void SetWaypointTime(this IBlackboard obj, float value) => obj.SetFloat(WaypointTime, value);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static bool DelWaypointTime(this IBlackboard obj) => obj.DelFloat(WaypointTime);
 
     }
 }

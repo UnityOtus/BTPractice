@@ -29,7 +29,7 @@ MonoBehaviour:
     name: TreeService
     type: 'TreeService : class'
   - id: 3
-    name: TargetResource
+    name: Target
     type: 'GameObject : class'
   - id: 4
     name: NoTreesView
@@ -43,3 +43,9 @@ MonoBehaviour:
   - id: 7
     name: FullBarnView
     type: 'GameObject : class'
+  - id: 8
+    name: Waypoints
+    type: 'Transform[] : class'
+  - id: 9
+    name: WaypointIndex
+    type: int
