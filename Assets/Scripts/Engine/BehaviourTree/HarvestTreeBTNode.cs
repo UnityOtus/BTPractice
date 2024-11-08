@@ -16,11 +16,6 @@ namespace Game.Engine
 
             GameObject tree = blackboard.GetTarget();
 
-            if (!tree.activeInHierarchy && resourceStorageComponent.IsNotFull())
-            {
-                return BTResult.FAILURE;
-            }
-            
             if (resourceStorageComponent.IsNotFull() && tree.activeInHierarchy)
             {
                 harvestComponent.Harvest();
